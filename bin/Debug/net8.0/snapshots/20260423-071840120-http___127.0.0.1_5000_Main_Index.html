@@ -1,0 +1,1917 @@
+<!DOCTYPE html><html lang="en" data-bs-theme="light"><head>
+    <base href="/">
+    <title>SIDOAGUNG ASIK - Enterprise Resource Planing</title>
+    <meta charset="utf-8">
+    <meta name="description" content="SIDO AGUNG GROUP ASIK - Enterprise Resource Planing">
+    <meta name="keywords" content="SIDO AGUNG GROUP">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SIDOAGUNG ASIK - Enterprise Resource Planing">
+    <meta property="og:url" content="https://www.sidoagunggroup.com">
+    <meta property="og:site_name" content="SAGA ERP">
+    <link rel="shortcut icon" href="images/sag-icon.png">
+
+    <link rel="stylesheet" href="fonts/googleapis/style.css">
+
+
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css">
+
+    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/metro/tabs.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/icon.css">
+
+    <link rel="stylesheet" type="text/css" href="lib/jquery.toast/jquery.toast.min.css">
+    <link rel="stylesheet" href="/fonts/Ionicons/css/ionicons.min.css">
+
+    <script>
+        // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
+    </script>
+</head>
+
+<body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default">
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+            } else {
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
+        }
+    </script>
+
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+            <div id="kt_app_header" class="app-header" style="height: unset;">
+                <div class="app-header-primary">
+                    <div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_primary_container">
+                        <div class="d-flex flex-stack flex-grow-1">
+                            <div class="d-flex">
+                                <div class="app-header-logo d-flex flex-center gap-2 me-lg-15">
+                                    <button class="btn btn-icon btn-sm btn-custom d-flex d-lg-none ms-n2" id="kt_app_header_menu_toggle">
+                                        <i class="ki-outline ki-abstract-14 fs-2"></i>
+                                    </button>
+
+                                    <a href="index.html">
+                                        <img alt="Logo" src="images/sidoagung-logo-white.png" class="mh-35px">
+                                    </a>
+                                </div>
+
+                                <div class="d-flex align-items-stretch" id="kt_app_header_menu_wrapper">
+                                    <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_menu_wrapper'}">
+                                        <div class="menu menu-rounded menu-column menu-lg-row menu-active-bg menu-title-gray-700 menu-state-gray-900 menu-icon-gray-500 menu-arrow-gray-500 menu-state-icon-primary menu-state-bullet-primary fw-semibold fs-6 align-items-stretch my-5 my-lg-0 px-2 px-lg-0" id="#kt_app_header_menu" data-kt-menu="true">
+
+                                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                                    <a class="menu-link extension-item" href="javascript:void(0)" data-extension_name="HRM">
+                                                            <span class="menu-icon">
+                                                                <i class="fa fa-people-group ki-element-9 fs-4"></i>
+                                                            </span>
+                                                        <span class="menu-title">HRM</span>
+                                                        <span class="menu-arrow d-lg-none"></span>
+                                                    </a>
+                                                </div>
+                                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                                    <a class="menu-link extension-item" href="javascript:void(0)" data-extension_name="Global">
+                                                            <span class="menu-icon">
+                                                                <i class="fa fa-arrows-left-right-to-line ki-element-9 fs-4"></i>
+                                                            </span>
+                                                        <span class="menu-title">Global</span>
+                                                        <span class="menu-arrow d-lg-none"></span>
+                                                    </a>
+                                                </div>
+                                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                                    <a class="menu-link extension-item" href="javascript:void(0)" data-extension_name="Administrator">
+                                                            <span class="menu-icon">
+                                                                <i class="fa fa-user-shield ki-element-9 fs-4"></i>
+                                                            </span>
+                                                        <span class="menu-title">Administrator</span>
+                                                        <span class="menu-arrow d-lg-none"></span>
+                                                    </a>
+                                                </div>
+                                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                                                    <a class="menu-link extension-item" href="javascript:void(0)" data-extension_name="System">
+                                                            <span class="menu-icon">
+                                                                <i class="fa fa-gears ki-element-9 fs-4"></i>
+                                                            </span>
+                                                        <span class="menu-title">System</span>
+                                                        <span class="menu-arrow d-lg-none"></span>
+                                                    </a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="app-navbar flex-shrink-0 gap-2">
+
+                                <div class="app-navbar-item ms-1">
+                                    <div class="btn btn-sm btn-icon btn-custom h-35px w-35px position-relative" id="kt_drawer_notifications_toggle">
+                                        <i class="ki-outline ki-category fs-3"></i>
+                                        <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute top-0 end-0 animation-blink"></span>
+                                    </div>
+                                </div>
+
+                                <div class="app-navbar-item ms-1">
+                                    <div class="cursor-pointer symbol position-relative symbol-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                                            <img src="/Main/GetPhoto?photoKey=628b5ad8-5c3a-4f54-ba73-59ede8857890" alt="User Image">
+                                        <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle mb-1 bottom-0 start-100 animation-blink"></span>
+                                    </div>
+
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
+                                        <div class="menu-item px-3">
+                                            <div class="menu-content d-flex align-items-center px-3">
+                                                <div class="symbol symbol-50px me-5">
+                                                        <img src="/Main/GetPhoto?photoKey=628b5ad8-5c3a-4f54-ba73-59ede8857890" alt="User Image">
+                                                </div>
+
+                                                <div class="d-flex flex-column">
+                                                    <div class="fw-bold d-flex align-items-center fs-5">Neysa Safitri 
+                                                    </div>
+                                                    <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">neysa.safitri@outlook.com</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="separator my-2"></div>
+
+                                        <div class="menu-item px-5">
+                                            <a href="account/overview.html" class="menu-link px-5">My Profile</a>
+                                        </div>
+
+
+                                        <div class="separator my-2"></div>
+
+
+                                        <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
+                                            <a href="#" class="menu-link px-5">
+                                                <span class="menu-title position-relative">
+                                                    Language
+                                                    <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
+                                                        English <img class="w-15px h-15px rounded-1 ms-2" src="/assets/media/flags/united-states.svg" alt="English">
+                                                    </span>
+                                                </span>
+                                            </a>
+
+                                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                    <div class="menu-item px-3">
+                                                        <form method="post" action="/Main/ChangeLanguage">
+                                                            <input name="X-CSRF-TOKEN-SAGA-FORM" type="hidden" value="CfDJ8CTc6gXv7-ZEr6oKXmwZLOe7UfCiddAC1B7LLmK51o3XwZaA1q4-LvwGCX9WKo3vyBlR8E2cQAFrr9BzdKMgMiThlnqx6fQSVCJ8j8yb44U-26fsTQ1LQRrWdorzyYfe1YMNoXuY9F6Rg8bxrZfNDgs">
+                                                            <input type="hidden" name="language" value="Bahasa">
+                                                            <input type="hidden" name="returnUrl" value="/Main/Index">
+                                                            <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="menu-link d-flex px-5 ">
+                                                                <span class="symbol symbol-20px me-4">
+                                                                    <img class="rounded-1" src="/assets/media/flags/indonesia.svg" alt="Bahasa">
+                                                                </span>
+                                                                Bahasa
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <form method="post" action="/Main/ChangeLanguage">
+                                                            <input name="X-CSRF-TOKEN-SAGA-FORM" type="hidden" value="CfDJ8CTc6gXv7-ZEr6oKXmwZLOe7UfCiddAC1B7LLmK51o3XwZaA1q4-LvwGCX9WKo3vyBlR8E2cQAFrr9BzdKMgMiThlnqx6fQSVCJ8j8yb44U-26fsTQ1LQRrWdorzyYfe1YMNoXuY9F6Rg8bxrZfNDgs">
+                                                            <input type="hidden" name="language" value="English">
+                                                            <input type="hidden" name="returnUrl" value="/Main/Index">
+                                                            <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="menu-link d-flex px-5 active">
+                                                                <span class="symbol symbol-20px me-4">
+                                                                    <img class="rounded-1" src="/assets/media/flags/united-states.svg" alt="English">
+                                                                </span>
+                                                                English
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <form method="post" action="/Main/ChangeLanguage">
+                                                            <input name="X-CSRF-TOKEN-SAGA-FORM" type="hidden" value="CfDJ8CTc6gXv7-ZEr6oKXmwZLOe7UfCiddAC1B7LLmK51o3XwZaA1q4-LvwGCX9WKo3vyBlR8E2cQAFrr9BzdKMgMiThlnqx6fQSVCJ8j8yb44U-26fsTQ1LQRrWdorzyYfe1YMNoXuY9F6Rg8bxrZfNDgs">
+                                                            <input type="hidden" name="language" value="Korea">
+                                                            <input type="hidden" name="returnUrl" value="/Main/Index">
+                                                            <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="menu-link d-flex px-5 ">
+                                                                <span class="symbol symbol-20px me-4">
+                                                                    <img class="rounded-1" src="/assets/media/flags/south-korea.svg" alt="Korea">
+                                                                </span>
+                                                                Korea
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <form method="post" action="/Main/ChangeLanguage">
+                                                            <input name="X-CSRF-TOKEN-SAGA-FORM" type="hidden" value="CfDJ8CTc6gXv7-ZEr6oKXmwZLOe7UfCiddAC1B7LLmK51o3XwZaA1q4-LvwGCX9WKo3vyBlR8E2cQAFrr9BzdKMgMiThlnqx6fQSVCJ8j8yb44U-26fsTQ1LQRrWdorzyYfe1YMNoXuY9F6Rg8bxrZfNDgs">
+                                                            <input type="hidden" name="language" value="Arabic">
+                                                            <input type="hidden" name="returnUrl" value="/Main/Index">
+                                                            <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="menu-link d-flex px-5 ">
+                                                                <span class="symbol symbol-20px me-4">
+                                                                    <img class="rounded-1" src="/assets/media/flags/saudi-arabia.svg" alt="Arabic">
+                                                                </span>
+                                                                Arabic
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                    <div class="menu-item px-3">
+                                                        <form method="post" action="/Main/ChangeLanguage">
+                                                            <input name="X-CSRF-TOKEN-SAGA-FORM" type="hidden" value="CfDJ8CTc6gXv7-ZEr6oKXmwZLOe7UfCiddAC1B7LLmK51o3XwZaA1q4-LvwGCX9WKo3vyBlR8E2cQAFrr9BzdKMgMiThlnqx6fQSVCJ8j8yb44U-26fsTQ1LQRrWdorzyYfe1YMNoXuY9F6Rg8bxrZfNDgs">
+                                                            <input type="hidden" name="language" value="China">
+                                                            <input type="hidden" name="returnUrl" value="/Main/Index">
+                                                            <a href="javascript:void(0);" onclick="this.closest('form').submit();" class="menu-link d-flex px-5 ">
+                                                                <span class="symbol symbol-20px me-4">
+                                                                    <img class="rounded-1" src="/assets/media/flags/china.svg" alt="China">
+                                                                </span>
+                                                                China
+                                                            </a>
+                                                        </form>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="menu-item px-5 my-1">
+                                            <a href="javascript:void(0)" class="menu-link px-5">Account Settings</a>
+                                        </div>
+
+                                        <div class="menu-item px-5">
+
+                                        </div>
+
+                                        <div class="menu-item px-5">
+                                            <a href="/Authorization/Logout" class="menu-link px-5">Sign Out</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="app-navbar-item d-lg-none" title="Show header menu">
+                                    <button class="btn btn-sm btn-icon btn-custom h-35px w-35px" id="kt_header_secondary_mobile_toggle">
+                                        <i class="ki-outline ki-element-4 fs-2"></i>
+                                    </button>
+                                </div>
+
+                                <div class="app-navbar-item d-lg-none me-n3" title="Show header menu">
+                                    <button class="btn btn-sm btn-icon btn-custom h-35px w-35px" id="kt_app_sidebar_mobile_toggle">
+                                        <i class="ki-outline ki-setting-3 fs-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-header-secondary app-header-mobile-drawer" data-kt-drawer="true" data-kt-drawer-name="app-header-secondary" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_secondary_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'append'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header'}" style="">
+                    <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+
+                        <div class="app-header-secondary-menu-sub d-flex align-items-stretch flex-grow-1">
+                            <div class="app-container d-flex flex-column flex-lg-row align-items-stretch justify-content-lg-between container-fluid">
+
+                                <div class="menu menu-rounded menu-column menu-lg-row menu-active-bg menu-title-gray-700 menu-state-gray-900 menu-icon-gray-500 menu-arrow-gray-500 menu-state-icon-primary menu-state-bullet-primary fw-semibold fs-base align-items-stretch my-2 my-lg-0 px-2 px-lg-0" id="kt_app_header_tertiary_menu" data-kt-menu="true"><div class="menu-item">
+                                        <a class="menu-link module-item" href="javascript:void(0)" data-module_name="Maintenance" data-extension_name="System">
+                                            <span class="menu-icon">
+                                                <i class="fa fa-arrows-left-right-to-line ki-element-9 fs-4"></i>
+                                            </span>
+                                            <span class="menu-title">Maintenance</span>
+                                        </a>
+                                    </div><div class="menu-item">
+                                        <a class="menu-link module-item" href="javascript:void(0)" data-module_name="Logs" data-extension_name="System">
+                                            <span class="menu-icon">
+                                                <i class="fa fa-arrows-left-right-to-line ki-element-9 fs-4"></i>
+                                            </span>
+                                            <span class="menu-title">Logs</span>
+                                        </a>
+                                    </div></div>
+
+                                <div id="kt_header_search" class="header-search d-flex align-items-stretch" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-overflow="false" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end" data-kt-search="true">
+                                    <div class="d-flex align-items-center" data-kt-search-element="toggle" id="kt_header_search_toggle">
+                                        <div class="btn btn-icon btn-active-color-primary ms-1">
+                                            <i class="ki-outline ki-magnifier fs-3"></i>
+                                        </div>
+                                    </div>
+
+                                    <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px" data-kt-menu="true">
+                                        <div data-kt-search-element="wrapper">
+                                            <form data-kt-search-element="form" class="w-100 position-relative mb-3" autocomplete="off">
+                                                <i class="ki-outline ki-magnifier fs-2 text-gray-500 position-absolute top-50 translate-middle-y ms-0"></i>
+
+                                                <input type="text" id="txtHeaderSearch" class="search-input form-control form-control-flush ps-10" name="txtHeaderSearch" value="" placeholder="Search..." data-kt-search-element="input">
+
+                                                <span class="search-spinner position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-1" data-kt-search-element="spinner">
+                                                    <span class="spinner-border h-15px w-15px align-middle text-gray-500"></span>
+                                                </span>
+
+                                                <span class="search-reset btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none" data-kt-search-element="clear">
+                                                    <i class="ki-outline ki-cross fs-2 fs-lg-1 me-0"></i>
+                                                </span>
+
+                                            </form>
+
+                                            <div class="separator border-gray-200 mb-6"></div>
+
+                                            <div data-kt-search-element="results" class="d-none">
+                                                <div class="scroll-y mh-200px mh-lg-350px">
+                                                    <h3 class="fs-5 text-muted m-0 pb-5" data-kt-search-element="category-title">Users</h3>
+
+                                                    <a href="#" class="d-flex text-gray-900 text-hover-primary align-items-center mb-5">
+                                                        <div class="symbol symbol-40px me-4">
+                                                            <img src="assets/media/avatars/300-6.jpg" alt="">
+                                                        </div>
+
+                                                        <div class="d-flex flex-column justify-content-start fw-semibold">
+                                                            <span class="fs-6 fw-semibold">Karina Clark</span>
+                                                            <span class="fs-7 fw-semibold text-muted">Marketing Manager</span>
+                                                        </div>
+                                                    </a>
+
+                                                    <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">Customers</h3>
+
+                                                    <a href="#" class="d-flex text-gray-900 text-hover-primary align-items-center mb-5">
+                                                        <div class="symbol symbol-40px me-4">
+                                                            <span class="symbol-label bg-light">
+                                                                <img class="w-20px h-20px" src="assets/media/svg/brand-logos/volicity-9.svg" alt="">
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="d-flex flex-column justify-content-start fw-semibold">
+                                                            <span class="fs-6 fw-semibold">Company Rbranding</span>
+                                                            <span class="fs-7 fw-semibold text-muted">UI Design</span>
+                                                        </div>
+                                                    </a>
+
+                                                    <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">Projects</h3>
+
+                                                    <a href="#" class="d-flex text-gray-900 text-hover-primary align-items-center mb-5">
+                                                        <div class="symbol symbol-40px me-4">
+                                                            <span class="symbol-label bg-light">
+                                                                <i class="ki-outline ki-notepad fs-2 text-primary"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="d-flex flex-column">
+                                                            <span class="fs-6 fw-semibold">Si-Fi Project by AU Themes</span>
+                                                            <span class="fs-7 fw-semibold text-muted">#45670</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-5" data-kt-search-element="main">
+                                                <div class="d-flex flex-stack fw-semibold mb-4">
+                                                    <span class="text-muted fs-6 me-2">Recently Searched:</span>
+                                                </div>
+
+                                                <div class="scroll-y mh-200px mh-lg-325px">
+                                                    <div class="d-flex align-items-center mb-5">
+                                                        <div class="symbol symbol-40px me-4">
+                                                            <span class="symbol-label bg-light">
+                                                                <i class="ki-outline ki-laptop fs-2 text-primary"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="d-flex flex-column">
+                                                            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-semibold">BoomApp by Keenthemes</a>
+                                                            <span class="fs-7 text-muted fw-semibold">#45789</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-kt-search-element="empty" class="text-center d-none">
+                                                <div class="pt-10 pb-10">
+                                                    <i class="ki-outline ki-search-list fs-4x opacity-50"></i>
+                                                </div>
+
+                                                <div class="pb-15 fw-semibold">
+                                                    <h3 class="text-gray-600 fs-5 mb-2">No result found</h3>
+                                                    <div class="text-muted fs-7">Please try again with a different query</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+                <div id="kt_app_sidebar" class="app-sidebar" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+                    <div id="kt_app_sidebar_wrapper" class="flex-grow-1 hover-scroll-y mb-5 mx-3 ms-lg-7 me-lg-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="{default: false, lg: '#kt_app_header'}" data-kt-scroll-offset="5px" style="height: 947px;">
+
+                        <div class="menu-sidebar menu menu-fit menu-column menu-rounded menu-title-gray-700 menu-icon-gray-700 menu-arrow-gray-700 fw-semibold fs-6 align-items-stretch flex-grow-1" id="kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="true"><div class="menu-item menu-accordion menu-fit">
+                                                <a class="menu-link menu-control" href="javascript:void(0)" data-url="/System/SystemLog/AuditTrail" data-title="Audit Trail"><span class="menu-icon"><i class=" fs-4 text-gray-700"></i></span><span class="menu-title">Audit Trail</span>
+                                                </a>
+                                            </div><div class="menu-item menu-accordion menu-fit">
+                                                <a class="menu-link menu-control" href="javascript:void(0)" data-url="/System/SystemLog/UserChanged" data-title="User Changed"><span class="menu-icon"><i class=" fs-4 text-gray-700"></i></span><span class="menu-title">User Changed</span>
+                                                </a>
+                                            </div></div>
+                    </div>
+                </div>
+
+                <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+                    <div class="d-flex flex-column flex-column-fluid">
+                        <div id="kt_app_content" class="flex-column-fluid">
+                            <div id="tab-container" class="tabs-container"><div class="tabs-header tabs-header-noborder" style="width: 1670px;"><div class="tabs-scroller-left" style="display: none;"></div><div class="tabs-scroller-right" style="display: none;"></div><div class="tabs-wrap" style="margin-left: 0px; margin-right: 0px; width: 1670px;"><ul class="tabs" style="height: 32px;"><li class="tabs-first"><span class="tabs-inner" style="height: 32px; line-height: 30px;"><span class="tabs-title">Dashboard</span><span class="tabs-icon"></span></span></li><li class=""><span class="tabs-inner" style="height: 32px; line-height: 30px;"><span class="tabs-title tabs-closable" style="padding-right: 20px;">Audit Trail</span><span class="tabs-icon"></span></span><span class="tabs-p-tool"><a href="javascript:;" class="icon-mini-refresh"></a></span><span class="tabs-close"></span></li><li class="tabs-last tabs-selected"><span class="tabs-inner" style="height: 32px; line-height: 30px;"><span class="tabs-title tabs-closable" style="padding-right: 20px;">User Changed</span><span class="tabs-icon"></span></span><span class="tabs-p-tool"><a href="javascript:;" class="icon-mini-refresh"></a></span><span class="tabs-close"></span></li></ul></div></div><div class="tabs-panels tabs-panels-noborder" style="width: 1670px;"><div class="panel panel-htop" style="display: none;"><div title="" class="panel-body panel-body-noheader panel-body-noborder" id="" style="width: 1670px;"><iframe src="/Main/Dashboard" style="width:100%; height: 842px;"></iframe></div></div><div class="panel panel-htop" style="display: none;"><div title="" class="panel-body panel-body-noheader panel-body-noborder" id="" style="width: 1670px;"><iframe src="/System/SystemLog/AuditTrail" style="width:100%; height: 842px;"></iframe></div></div><div class="panel panel-htop" style=""><div title="" class="panel-body panel-body-noheader panel-body-noborder" id="" style="width: 1670px;"><iframe src="/System/SystemLog/UserChanged" style="width:100%; height: 842px;"></iframe></div></div></div></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="kt_activities" class="bg-body drawer drawer-end" data-kt-drawer="true" data-kt-drawer-name="activities" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'lg': '900px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_activities_toggle" data-kt-drawer-close="#kt_activities_close" style="width: 900px !important;">
+        <div class="card shadow-none border-0 rounded-0">
+            <div class="card-header" id="kt_activities_header">
+                <h3 class="card-title fw-bold text-gray-900">Activity Logs</h3>
+                <div class="card-toolbar">
+                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_activities_close">
+                        <i class="ki-outline ki-cross fs-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body position-relative" id="kt_activities_body">
+                <div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_activities_body" data-kt-scroll-dependencies="#kt_activities_header, #kt_activities_footer" data-kt-scroll-offset="5px" style="height: 874px;">
+                    <div class="timeline timeline-border-dashed">
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-message-text-2 fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-semibold mb-2">There are 2 new tasks for you in “AirPlus Mobile App” project:</div>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Added at 4:23 PM by</div>
+
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" aria-label="Nina Nilson" data-bs-original-title="Nina Nilson" data-kt-initialized="1">
+                                            <img src="assets/media/avatars/300-14.jpg" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-auto pb-5">
+                                    <div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-750px px-7 py-3 mb-5">
+                                        <a href="apps/projects/project.html" class="fs-5 text-gray-900 text-hover-primary fw-semibold w-375px min-w-200px">Meeting with customer</a>
+
+                                        <div class="min-w-175px pe-2">
+                                            <span class="badge badge-light text-muted">Application Design</span>
+                                        </div>
+
+                                        <div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px pe-2">
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                    <img src="/Main/GetPhoto?photoKey=628b5ad8-5c3a-4f54-ba73-59ede8857890" alt="User Image">
+                                            </div>
+
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <img src="assets/media/avatars/300-14.jpg" alt="img">
+                                            </div>
+
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <div class="symbol-label fs-8 fw-semibold bg-primary text-inverse-primary">A</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="min-w-125px pe-2">
+                                            <span class="badge badge-light-primary">In Progress</span>
+                                        </div>
+
+                                        <a href="apps/projects/project.html" class="btn btn-sm btn-light btn-active-light-primary">View</a>
+                                    </div>
+
+                                    <div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-750px px-7 py-3 mb-0">
+                                        <a href="apps/projects/project.html" class="fs-5 text-gray-900 text-hover-primary fw-semibold w-375px min-w-200px">Project Delivery Preparation</a>
+
+                                        <div class="min-w-175px">
+                                            <span class="badge badge-light text-muted">CRM System Development</span>
+                                        </div>
+
+                                        <div class="symbol-group symbol-hover flex-nowrap flex-grow-1 min-w-100px">
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <img src="assets/media/avatars/300-20.jpg" alt="img">
+                                            </div>
+
+                                            <div class="symbol symbol-circle symbol-25px">
+                                                <div class="symbol-label fs-8 fw-semibold bg-success text-inverse-primary">B</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="min-w-125px">
+                                            <span class="badge badge-light-success">Completed</span>
+                                        </div>
+
+                                        <a href="apps/projects/project.html" class="btn btn-sm btn-light btn-active-light-primary">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon me-4">
+                                <i class="ki-outline ki-flag fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n2">
+                                <div class="overflow-auto pe-3">
+                                    <div class="fs-5 fw-semibold mb-2">Invitation for crafting engaging designs that speak human workshop</div>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Sent at 4:23 PM by</div>
+
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" aria-label="Alan Nilson" data-bs-original-title="Alan Nilson" data-kt-initialized="1">
+                                            <img src="assets/media/avatars/300-1.jpg" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-disconnect fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="mb-5 pe-3">
+                                    <a href="#" class="fs-5 fw-semibold text-gray-800 text-hover-primary mb-2">3 New Incoming Project Files:</a>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Sent at 10:30 PM by</div>
+
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" aria-label="Jan Hummer" data-bs-original-title="Jan Hummer" data-kt-initialized="1">
+                                            <img src="assets/media/avatars/300-23.jpg" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-auto pb-5">
+                                    <div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-5">
+                                        <div class="d-flex flex-aligns-center pe-10 pe-lg-20">
+                                            <img alt="" class="w-30px me-3" src="assets/media/svg/files/pdf.svg">
+
+                                            <div class="ms-1 fw-semibold">
+                                                <a href="apps/projects/project.html" class="fs-6 text-hover-primary fw-bold">Finance KPI App Guidelines</a>
+
+                                                <div class="text-gray-500">1.9mb</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-aligns-center pe-10 pe-lg-20">
+                                            <img alt="apps/projects/project.html" class="w-30px me-3" src="assets/media/svg/files/doc.svg">
+
+                                            <div class="ms-1 fw-semibold">
+                                                <a href="#" class="fs-6 text-hover-primary fw-bold">Client UAT Testing Results</a>
+
+                                                <div class="text-gray-500">18kb</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-aligns-center">
+                                            <img alt="apps/projects/project.html" class="w-30px me-3" src="assets/media/svg/files/css.svg">
+
+                                            <div class="ms-1 fw-semibold">
+                                                <a href="#" class="fs-6 text-hover-primary fw-bold">Finance Reports</a>
+
+                                                <div class="text-gray-500">20mb</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-abstract-26 fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-semibold mb-2">
+                                        Task <a href="#" class="text-primary fw-bold me-1">#45890</a>merged with <a href="#" class="text-primary fw-bold me-1">#45890</a>in “Ads Pro Admin Dashboard project:
+                                    </div>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Initiated at 4:23 PM by</div>
+
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" aria-label="Nina Nilson" data-bs-original-title="Nina Nilson" data-kt-initialized="1">
+                                            <img src="assets/media/avatars/300-14.jpg" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-pencil fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-semibold mb-2">3 new application design concepts added:</div>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Created at 4:23 PM by</div>
+
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" aria-label="Marcus Dotson" data-bs-original-title="Marcus Dotson" data-kt-initialized="1">
+                                                <img src="/Main/GetPhoto?photoKey=628b5ad8-5c3a-4f54-ba73-59ede8857890" alt="User Image">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-auto pb-5">
+                                    <div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
+                                        <div class="overlay me-10">
+                                            <div class="overlay-wrapper">
+                                                <img alt="img" class="rounded w-150px" src="assets/media/stock/600x400/img-29.jpg">
+                                            </div>
+
+                                            <div class="overlay-layer bg-dark bg-opacity-10 rounded">
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="overlay me-10">
+                                            <div class="overlay-wrapper">
+                                                <img alt="img" class="rounded w-150px" src="assets/media/stock/600x400/img-31.jpg">
+                                            </div>
+
+                                            <div class="overlay-layer bg-dark bg-opacity-10 rounded">
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="overlay">
+                                            <div class="overlay-wrapper">
+                                                <img alt="img" class="rounded w-150px" src="assets/media/stock/600x400/img-40.jpg">
+                                            </div>
+
+                                            <div class="overlay-layer bg-dark bg-opacity-10 rounded">
+                                                <a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-sms fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-semibold mb-2">New case <a href="#" class="text-primary fw-bold me-1">#67890</a>is assigned to you in Multi-platform Database Design project</div>
+
+                                    <div class="overflow-auto pb-5">
+                                        <div class="d-flex align-items-center mt-1 fs-6">
+                                            <div class="text-muted me-2 fs-7">Added at 4:23 PM by</div>
+
+                                            <a href="#" class="text-primary fw-bold me-1">Alice Tan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-pencil fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mb-10 mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-semibold mb-2">You have received a new order:</div>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Placed at 5:05 AM by</div>
+
+                                        <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" aria-label="Robert Rich" data-bs-original-title="Robert Rich" data-kt-initialized="1">
+                                            <img src="assets/media/avatars/300-4.jpg" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-auto pb-5">
+                                    <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+                                        <i class="ki-outline ki-devices-2 fs-2tx text-primary me-4"></i>
+
+                                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                            <div class="mb-3 mb-md-0 fw-semibold">
+                                                <h4 class="text-gray-900 fw-bold">Database Backup Process Completed!</h4>
+                                                <div class="fs-6 text-gray-700 pe-7">Login into Admin Dashboard to make sure the data integrity is OK</div>
+                                            </div>
+
+                                            <a href="#" class="btn btn-primary px-6 align-self-center text-nowrap">Proceed</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-line"></div>
+
+                            <div class="timeline-icon">
+                                <i class="ki-outline ki-basket fs-2 text-gray-500"></i>
+                            </div>
+
+                            <div class="timeline-content mt-n1">
+                                <div class="pe-3 mb-5">
+                                    <div class="fs-5 fw-semibold mb-2">New order <a href="#" class="text-primary fw-bold me-1">#67890</a>is placed for Workshow Planning &amp; Budget Estimation</div>
+
+                                    <div class="d-flex align-items-center mt-1 fs-6">
+                                        <div class="text-muted me-2 fs-7">Placed at 4:23 PM by</div>
+
+                                        <a href="#" class="text-primary fw-bold me-1">Jimmy Bold</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer py-5 text-center" id="kt_activities_footer">
+                <a href="pages/user-profile/activity.html" class="btn btn-bg-body text-primary">View All Activities <i class="ki-outline ki-arrow-right fs-3 text-primary"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="kt_drawer_chat" class="bg-body drawer drawer-end" data-kt-drawer="true" data-kt-drawer-name="chat" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'md': '500px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_drawer_chat_toggle" data-kt-drawer-close="#kt_drawer_chat_close" style="width: 500px !important;">
+        <div class="card w-100 border-0 rounded-0" id="kt_drawer_chat_messenger">
+            <div class="card-header pe-5" id="kt_drawer_chat_messenger_header">
+                <div class="card-title">
+                    <div class="d-flex justify-content-center flex-column me-3">
+                        <a href="#" class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">Brian Cox</a>
+
+                        <div class="mb-0 lh-1">
+                            <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
+                            <span class="fs-7 fw-semibold text-muted">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-toolbar">
+                    <div class="me-0">
+                        <button class="btn btn-sm btn-icon btn-active-color-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-outline ki-dots-square fs-2"></i>
+                        </button>
+
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3" data-kt-menu="true">
+                            <div class="menu-item px-3">
+                                <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Contacts</div>
+                            </div>
+
+                            <div class="menu-item px-3">
+                                <a href="#" class="menu-link px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_users_search">Add Contact</a>
+                            </div>
+
+                            <div class="menu-item px-3">
+                                <a href="#" class="menu-link flex-stack px-3" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+                                    Invite Contacts
+                                    <span class="ms-2" data-bs-toggle="tooltip" aria-label="Specify a contact email to send an invitation" data-bs-original-title="Specify a contact email to send an invitation" data-kt-initialized="1">
+                                        <i class="ki-outline ki-information fs-7"></i>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+                                <a href="#" class="menu-link px-3">
+                                    <span class="menu-title">Groups</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+
+                                <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3" data-bs-toggle="tooltip" data-bs-original-title="Coming soon" data-kt-initialized="1">Create Group</a>
+                                    </div>
+
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3" data-bs-toggle="tooltip" data-bs-original-title="Coming soon" data-kt-initialized="1">Invite Members</a>
+                                    </div>
+
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3" data-bs-toggle="tooltip" data-bs-original-title="Coming soon" data-kt-initialized="1">Settings</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item px-3 my-1">
+                                <a href="#" class="menu-link px-3" data-bs-toggle="tooltip" data-bs-original-title="Coming soon" data-kt-initialized="1">Settings</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" id="kt_drawer_chat_close">
+                        <i class="ki-outline ki-cross-square fs-2"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body" id="kt_drawer_chat_messenger_body">
+                <div class="scroll-y me-n5 pe-5" data-kt-element="messages" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_drawer_chat_messenger_header, #kt_drawer_chat_messenger_footer" data-kt-scroll-wrappers="#kt_drawer_chat_messenger_body" data-kt-scroll-offset="0px" style="height: 820px;">
+                    <div class="d-flex justify-content-start mb-10">
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <span class="text-muted fs-7 mb-1">2 mins</span>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">How likely are you to recommend our company to your friends and family ?</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-10">
+                        <div class="d-flex flex-column align-items-end">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-3">
+                                    <span class="text-muted fs-7 mb-1">5 mins</span>
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                </div>
+
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">
+                                Hey there, we’re just writing to let you know that you’ve been subscribed to a repository on GitHub.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start mb-10">
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <span class="text-muted fs-7 mb-1">1 Hour</span>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">Ok, Understood!</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-10">
+                        <div class="d-flex flex-column align-items-end">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-3">
+                                    <span class="text-muted fs-7 mb-1">2 Hours</span>
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                </div>
+
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">You’ll receive notifications for all issues, pull requests!</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start mb-10">
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <span class="text-muted fs-7 mb-1">3 Hours</span>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">
+                                You can unwatch this repository immediately by clicking here: <a href="https://keenthemes.com">Keenthemes.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-10">
+                        <div class="d-flex flex-column align-items-end">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-3">
+                                    <span class="text-muted fs-7 mb-1">4 Hours</span>
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                </div>
+
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text">Most purchased Business courses during this sale!</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start mb-10">
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <span class="text-muted fs-7 mb-1">5 Hours</span>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">
+                                Company BBQ to celebrate the last quater achievements and goals. Food and drinks provided
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-10 d-none" data-kt-element="template-out">
+                        <div class="d-flex flex-column align-items-end">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-3">
+                                    <span class="text-muted fs-7 mb-1">Just now</span>
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                </div>
+
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-1.jpg">
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-primary text-gray-900 fw-semibold mw-lg-400px text-end" data-kt-element="message-text"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-start mb-10 d-none" data-kt-element="template-in">
+                        <div class="d-flex flex-column align-items-start">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="symbol symbol-35px symbol-circle">
+                                    <img alt="Pic" src="assets/media/avatars/300-25.jpg">
+                                </div>
+
+                                <div class="ms-3">
+                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian Cox</a>
+                                    <span class="text-muted fs-7 mb-1">Just now</span>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded bg-light-info text-gray-900 fw-semibold mw-lg-400px text-start" data-kt-element="message-text">Right before vacation season we have the next Big Deal for you.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer pt-4" id="kt_drawer_chat_messenger_footer">
+                <textarea id="txtChatMassageFooter" name="txtChatMassageFooter" class="form-control form-control-flush mb-3" rows="1" data-kt-element="input" placeholder="Type a message"></textarea>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex align-items-center me-2">
+                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" aria-label="Coming soon" data-bs-original-title="Coming soon" data-kt-initialized="1">
+                            <i class="ki-outline ki-paper-clip fs-3"></i>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button" data-bs-toggle="tooltip" aria-label="Coming soon" data-bs-original-title="Coming soon" data-kt-initialized="1">
+                            <i class="ki-outline ki-cloud-add fs-3"></i>
+                        </button>
+                    </div>
+
+                    <button class="btn btn-primary" type="button" data-kt-element="send">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="kt_shopping_cart" class="bg-body drawer drawer-end" data-kt-drawer="true" data-kt-drawer-name="cart" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'md': '500px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_drawer_shopping_cart_toggle" data-kt-drawer-close="#kt_drawer_shopping_cart_close" style="width: 500px !important;">
+        <div class="card card-flush w-100 rounded-0">
+            <div class="card-header">
+                <h3 class="card-title text-gray-900 fw-bold">Shopping Cart</h3>
+
+                <div class="card-toolbar">
+                    <div class="btn btn-sm btn-icon btn-active-light-primary" id="kt_drawer_shopping_cart_close">
+                        <i class="ki-outline ki-cross fs-2"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body hover-scroll-overlay-y h-400px pt-5">
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">Iblender</a>
+                            <span class="text-gray-500 fw-semibold d-block">The best kitchen gadget in 2022</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 350</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">5</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-1.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-6"></div>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">SmartCleaner</a>
+                            <span class="text-gray-500 fw-semibold d-block">Smart tool for cooking</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 650</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">4</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-3.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-6"></div>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">CameraMaxr</a>
+                            <span class="text-gray-500 fw-semibold d-block">Professional camera for edge</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 150</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">3</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-8.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-6"></div>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">$D Printer</a>
+                            <span class="text-gray-500 fw-semibold d-block">Manfactoring unique objekts</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 1450</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">7</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-26.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-6"></div>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">MotionWire</a>
+                            <span class="text-gray-500 fw-semibold d-block">Perfect animation tool</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 650</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">7</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-21.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-6"></div>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">Samsung</a>
+                            <span class="text-gray-500 fw-semibold d-block">Profile info,Timeline etc</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 720</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">6</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-34.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="separator separator-dashed my-6"></div>
+
+                <div class="d-flex flex-stack">
+                    <div class="d-flex flex-column me-3">
+                        <div class="mb-3">
+                            <a href="apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fs-4 fw-bold">$D Printer</a>
+                            <span class="text-gray-500 fw-semibold d-block">Manfactoring unique objekts</span>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <span class="fw-bold text-gray-800 fs-5">$ 430</span>
+                            <span class="text-muted mx-2">for</span>
+                            <span class="fw-bold text-gray-800 fs-5 me-3">8</span>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon-success btn-icon w-25px h-25px me-2">
+                                <i class="ki-outline ki-minus fs-4"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-light-success btn-icon w-25px h-25px">
+                                <i class="ki-outline ki-plus fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="symbol symbol-70px symbol-2by3 flex-shrink-0">
+                        <img src="assets/media/stock/600x400/img-27.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="kt_drawer_notifications" class="bg-body drawer drawer-end" data-kt-drawer="true" data-kt-drawer-name="notifications" data-kt-drawer-activate="true" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'300px', 'md': '400px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_drawer_notifications_toggle" data-kt-drawer-close="#kt_drawer_notifications_close" style="width: 400px !important;">
+
+        <div class="card shadow-none border-0 rounded-0 w-100">
+            <div class="card-header border-0 py-6" id="kt_drawer_notifications_header" style="background: #b02a00; min-height: unset;">
+                <div class="d-flex flex-column w-100">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center">
+                            <h3 class="card-title fw-bold text-white fs-3 mb-0"><i class="ki-outline ki-notification-on me-3 text-white fs-1"></i>Informations</h3>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-icon btn-color-white btn-notifications-close" id="kt_drawer_notifications_close">
+                            <i class="ki-outline ki-cross fs-1"></i>
+                        </button>
+                    </div>
+                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-6 fw-semibold" role="tablist" id="kt_notifications_tabs">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-2 active" data-bs-toggle="tab" href="#kt_notifications_tab_teams" role="tab" aria-selected="true">Teams</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-2" data-bs-toggle="tab" href="#kt_notifications_tab_notifications" role="tab" aria-selected="false" tabindex="-1">Notifications</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link text-white opacity-75 opacity-state-100 pb-2" data-bs-toggle="tab" href="#kt_notifications_tab_approvals" role="tab" aria-selected="false" tabindex="-1">Approvals</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body position-relative p-0" id="kt_drawer_notifications_body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="kt_notifications_tab_teams" role="tabpanel">
+                        <div id="kt_notifications_teams_scroll" class="scroll-y px-6 pt-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_drawer_notifications_body" data-kt-scroll-dependencies="#kt_drawer_notifications_header, #kt_drawer_notifications_footer" data-kt-scroll-offset="5px" style="height: 914px;">
+                            
+
+<div class="organization-members-wrapper">
+        <div class="mb-4 organization-members-header">
+            <div class="fs-6 fw-semibold text-gray-900">Welcome to Recruitment</div>
+            <div class="fs-7 text-muted">Here is today's attendance list for your organization's members.</div>
+        </div>
+        <div class="d-flex flex-column organization-members-container">
+                <div class="notification-item d-flex align-items-center organization-member-item">
+                    <div class="symbol symbol-40px me-4">
+                            <img class="rounded-circle" src="/Main/GetPhoto?photoKey=628b5ad8-5c3a-4f54-ba73-59ede8857890" onerror="this.onerror=null;this.src='/images/user-profile.png';" alt="User Image">
+                    </div>
+                    <div class="d-flex flex-column flex-grow-1">
+                        <span class="fs-6 fw-semibold text-gray-900">Neysa Safitri</span>
+                        <span class="fs-7 text-muted">Absent</span>
+                    </div>
+                    <span class="badge badge-light-danger">Absent</span>
+                </div>
+        </div>
+
+</div>
+
+
+<script>
+    function loadMoreOrganizationMembers(button) {
+        const employeeKey = button.getAttribute('data-employee-key');
+        const nextPage = button.getAttribute('data-next-page');
+        const pageSize = button.getAttribute('data-page-size');
+        const showInlineLoadMore = button.getAttribute('data-show-inline-load-more') === 'true';
+        const $wrapper = $(button).closest('.organization-members-wrapper');
+
+        $.ajax({
+            url: '/Main/LoadMoreOrganizationMembers',
+            type: 'GET',
+            data: {
+                employeeKey: employeeKey,
+                pageNumber: nextPage,
+                pageSize: pageSize,
+                showInlineLoadMore: showInlineLoadMore
+            },
+            success: function (result) {
+                const $response = $('<div>').html(result);
+                const $newItems = $response.find('.organization-members-container > .organization-member-item');
+                const $newLoadMore = $response.find('.organization-load-more-container');
+
+                $wrapper.find('.organization-members-container').append($newItems);
+                $wrapper.find('.organization-load-more-container').remove();
+
+                if ($newLoadMore.length) {
+                    $wrapper.append($newLoadMore);
+                }
+
+                if (typeof window.syncDrawerLoadMoreButton === 'function') {
+                    window.syncDrawerLoadMoreButton();
+                }
+            },
+            error: function (error) {
+                console.error('Error loading organization members:', error);
+            }
+        });
+    }
+</script>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="kt_notifications_tab_notifications" role="tabpanel">
+                        <div id="kt_notifications_notifications_scroll" class="scroll-y px-6 pt-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_drawer_notifications_body" data-kt-scroll-dependencies="#kt_drawer_notifications_header, #kt_drawer_notifications_footer" data-kt-scroll-offset="5px" style="height: 914px;">
+                            
+
+<div class="calendar-notifications-wrapper">
+        <div class="text-center text-muted py-10 calendar-notifications-container">
+            <i class="ki-outline ki-notification-on fs-3x text-gray-400 mb-3 d-block"></i>
+            <span class="fs-6">No notifications available</span>
+        </div>
+
+</div>
+
+
+<script>
+    function loadMoreCalendarNotifications(button) {
+        const employeeKey = button.getAttribute('data-employee-key');
+        const nextPage = button.getAttribute('data-next-page');
+        const pageSize = button.getAttribute('data-page-size');
+        const showInlineLoadMore = button.getAttribute('data-show-inline-load-more') === 'true';
+        const $wrapper = $(button).closest('.calendar-notifications-wrapper');
+
+        $.ajax({
+            url: '/Main/LoadMoreCalendarNotifications',
+            type: 'GET',
+            data: {
+                employeeKey: employeeKey,
+                pageNumber: nextPage,
+                pageSize: pageSize,
+                showInlineLoadMore: showInlineLoadMore
+            },
+            success: function (result) {
+                const $response = $('<div>').html(result);
+                const $newItems = $response.find('.calendar-notifications-container > .calendar-notification-item');
+                const $newLoadMore = $response.find('.calendar-notifications-load-more-container');
+
+                $wrapper.find('.calendar-notifications-container').append($newItems);
+                $wrapper.find('.calendar-notifications-load-more-container').remove();
+
+                if ($newLoadMore.length) {
+                    $wrapper.append($newLoadMore);
+                }
+
+                if (typeof window.syncDrawerLoadMoreButton === 'function') {
+                    window.syncDrawerLoadMoreButton();
+                }
+            },
+            error: function (error) {
+                console.error('Error loading calendar notifications:', error);
+            }
+        });
+    }
+</script>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="kt_notifications_tab_approvals" role="tabpanel">
+                        <div id="kt_notifications_approvals_scroll" class="scroll-y px-6 pt-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_drawer_notifications_body" data-kt-scroll-dependencies="#kt_drawer_notifications_header, #kt_drawer_notifications_footer" data-kt-scroll-offset="5px" style="height: 914px;">
+                            
+
+<div class="approval-requests-wrapper">
+        <ul class="approval-request-container approval-request-container-drawer">
+                <li class="approval-request-item-drawer">
+                    <div class="w-100 text-center text-muted py-10">
+                        <i class="ki-outline ki-verify fs-3x text-gray-400 mb-3 d-block"></i>
+                        <span class="fs-6">No approval requests</span>
+                    </div>
+                </li>
+        </ul>
+
+</div>
+
+
+<script>
+    function loadMoreApprovals(button) {
+        const employeeKey = button.getAttribute('data-employee-key');
+        const nextPage = button.getAttribute('data-next-page');
+        const pageSize = button.getAttribute('data-page-size');
+        const showInlineLoadMore = button.getAttribute('data-show-inline-load-more') === 'true';
+        const $wrapper = $(button).closest('.approval-requests-wrapper');
+
+        $.ajax({
+            url: '/Main/LoadMoreApprovals',
+            type: 'GET',
+            data: {
+                employeeKey: employeeKey,
+                pageNumber: nextPage,
+                pageSize: pageSize,
+                showInlineLoadMore: showInlineLoadMore
+            },
+            success: function (result) {
+                const $response = $('<div>').html(result);
+                const $newItems = $response.find('.approval-request-container > li');
+                const $newLoadMore = $response.find('.approval-load-more-container');
+
+                $wrapper.find('.approval-request-container').append($newItems);
+                $wrapper.find('.approval-load-more-container').remove();
+
+                if ($newLoadMore.length) {
+                    $wrapper.append($newLoadMore);
+                }
+
+                if (typeof window.syncDrawerLoadMoreButton === 'function') {
+                    window.syncDrawerLoadMoreButton();
+                }
+            },
+            error: function (error) {
+                console.error('Error loading more approvals:', error);
+            }
+        });
+    }
+</script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer py-4 text-center border-top" id="kt_drawer_notifications_footer">
+                <a href="javascript:void(0)" id="kt_notifications_load_more_btn" class="btn btn-color-primary btn-active-light-primary fw-semibold fs-6 d-none">
+                    Load More <i class="ki-outline ki-arrow-down fs-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #kt_drawer_notifications .nav-tabs .nav-link.active {
+            border-bottom: 2px solid #fff;
+            opacity: 1 !important;
+        }
+        #kt_drawer_notifications .nav-tabs .nav-link {
+            border: none;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+        #kt_drawer_notifications .notification-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f1f4;
+            transition: background-color 0.2s ease;
+        }
+        #kt_drawer_notifications .notification-item:hover {
+            background-color: #f9f9fb;
+            margin-left: -24px;
+            margin-right: -24px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+        #kt_drawer_notifications .notification-item:last-child {
+            border-bottom: none;
+        }
+        #kt_drawer_notifications .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        #kt_drawer_notifications .notification-unread {
+            background-color: #fff5f2;
+        }
+        #kt_drawer_notifications .card-header:first-child {
+            border-radius: 0;
+        }
+        #kt_drawer_notifications .btn-notifications-close {
+            transition: background-color 0.2s ease;
+            border-radius: 6px;
+        }
+        #kt_drawer_notifications .btn-notifications-close:hover {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+        }
+        #kt_drawer_notifications .approval-request-container-drawer {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #kt_drawer_notifications .approval-request-item-drawer {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f1f4;
+        }
+        #kt_drawer_notifications .approval-request-item-drawer:last-child {
+            border-bottom: none;
+        }
+        #kt_drawer_notifications .approval-request-item-drawer.approval-empty-state {
+            min-height: 220px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-bottom: none;
+            gap: 12px;
+        }
+        #kt_drawer_notifications .approval-request-item-drawer .product-img img {
+            width: 42px;
+            height: 42px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        #kt_drawer_notifications .approval-request-item-drawer .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+        #kt_drawer_notifications .approval-request-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        #kt_drawer_notifications .approval-request-title {
+            color: #3f4254;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        #kt_drawer_notifications .approval-request-item-drawer .product-description {
+            display: block;
+            color: #7e8299;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        #kt_drawer_notifications .approval-status-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+            color: #fff;
+        }
+        #kt_drawer_notifications .approval-status-badge.status-approve {
+            background-color: #00a65a;
+        }
+        #kt_drawer_notifications .approval-status-badge.status-reject {
+            background-color: #dd4b39;
+        }
+        #kt_drawer_notifications .approval-status-badge.status-revision {
+            background-color: #f39c12;
+        }
+        #kt_drawer_notifications .approval-status-badge.status-waiting {
+            background-color: #00c0ef;
+        }
+        #kt_drawer_notifications .approval-status-badge.status-default {
+            background-color: #8a8d93;
+        }
+        #kt_drawer_notifications .approval-empty-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2px solid #d4d8e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #kt_drawer_notifications .approval-empty-icon {
+            font-size: 24px;
+            color: #b6bfd7;
+        }
+        #kt_drawer_notifications .approval-empty-text {
+            color: #a0a8bf;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    </style>
+
+    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <i class="ki-outline ki-arrow-up"></i>
+    </div>
+
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>
+    <script src="lib/easyui/jquery.easyui.min.js"></script>
+    <script src="lib/jquery.toast/jquery.toast.min.js"></script>
+
+
+    <script src="js/site.js"></script>
+
+
+    <script>
+        var hostUrl = ``;
+        jQuery.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN-SAGA-HEADER': "CfDJ8CTc6gXv7-ZEr6oKXmwZLOe7UfCiddAC1B7LLmK51o3XwZaA1q4-LvwGCX9WKo3vyBlR8E2cQAFrr9BzdKMgMiThlnqx6fQSVCJ8j8yb44U-26fsTQ1LQRrWdorzyYfe1YMNoXuY9F6Rg8bxrZfNDgs"
+            }
+        });
+    </script>
+
+    <script>
+        var navigationMasters = [{"Category":0,"Title":"HRM","Icon":"fa fa-people-group","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":1,"Title":"Organization","Icon":"fa fa-bank","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":2,"Title":"Organization","Icon":"ki-outline ki-menu","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Company","Icon":"","AbsolutePath":"/Organization/Company/Index","SubNavigations":[]},{"Category":3,"Title":"Organization","Icon":"","AbsolutePath":"/Organization/Organization/Index","SubNavigations":[]},{"Category":3,"Title":"Title","Icon":"","AbsolutePath":"/Organization/Title/Index","SubNavigations":[]},{"Category":3,"Title":"Position","Icon":"","AbsolutePath":"/Organization/Position/Index","SubNavigations":[]},{"Category":3,"Title":"Grade","Icon":"","AbsolutePath":"/Organization/Grade/Index","SubNavigations":[]},{"Category":3,"Title":"Branch","Icon":"","AbsolutePath":"/Organization/Branch/Index","SubNavigations":[]}]},{"Category":2,"Title":"Report","Icon":"ki-menu ki-outline ki-paper-clip","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Company Structure","Icon":"","AbsolutePath":"/Organization/OrganizationStructure/Index","SubNavigations":[]},{"Category":3,"Title":"Company Policy","Icon":"","AbsolutePath":"/Organization/CompanyPolicy/Report","SubNavigations":[]}]},{"Category":2,"Title":"Setting","Icon":"ki-outline ki-setting","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Title Qualification","Icon":"","AbsolutePath":"/Organization/TitleQualification/Index","SubNavigations":[]},{"Category":3,"Title":"Company Policy","Icon":"","AbsolutePath":"/Organization/CompanyPolicy/Index","SubNavigations":[]}]}]},{"Category":1,"Title":"Employee","Icon":"fa fa-user-group","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":2,"Title":"Employee","Icon":"ki-outline ki-user-tick","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Employee","Icon":"","AbsolutePath":"/Employee/Employee/Index","SubNavigations":[]},{"Category":3,"Title":"Employee Transfer","Icon":"","AbsolutePath":"/Employee/EmployeeTransfer/Index","SubNavigations":[]}]},{"Category":2,"Title":"Report","Icon":"ki-menu ki-outline ki-paper-clip","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Employee","Icon":"","AbsolutePath":"/Employee/EmployeeReport/Filter","SubNavigations":[]},{"Category":3,"Title":"Curriculum Vitae","Icon":"","AbsolutePath":"/Employee/CurriculumVitaeReport/Filter","SubNavigations":[]}]},{"Category":2,"Title":"Graph","Icon":"ki-outline ki-graph-up","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Turn Over","Icon":"","AbsolutePath":"/Employee/GraphTurnOver/Filter","SubNavigations":[]},{"Category":3,"Title":"Man Power","Icon":"","AbsolutePath":"/Employee/GraphManPower/Filter","SubNavigations":[]}]},{"Category":2,"Title":"Setting","Icon":"ki-outline ki-setting","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Education","Icon":"","AbsolutePath":"/Employee/Education/Index","SubNavigations":[]},{"Category":3,"Title":"Hobby","Icon":"","AbsolutePath":"/Employee/Hobby/Index","SubNavigations":[]},{"Category":3,"Title":"Language","Icon":"","AbsolutePath":"/Employee/Language/Index","SubNavigations":[]},{"Category":3,"Title":"Skill","Icon":"","AbsolutePath":"/Employee/Skill/Index","SubNavigations":[]},{"Category":3,"Title":"Nationality","Icon":"","AbsolutePath":"/Employee/Nationality/Index","SubNavigations":[]},{"Category":3,"Title":"Religion","Icon":"","AbsolutePath":"/Employee/Religion/Index","SubNavigations":[]},{"Category":3,"Title":"Ethnic","Icon":"","AbsolutePath":"/Employee/Ethnic/Index","SubNavigations":[]}]}]},{"Category":1,"Title":"Attendance","Icon":"fa fa-calendar-days","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":2,"Title":"Data Retrive","Icon":"fa fa-fingerprint","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Finger Print","Icon":"","AbsolutePath":"/Attendance/DataRetrive/FingerPrint","SubNavigations":[]},{"Category":3,"Title":"Attendance Point","Icon":"","AbsolutePath":"/Attendance/DataRetrive/AttendancePoint","SubNavigations":[]},{"Category":3,"Title":"Import Finger Log","Icon":"","AbsolutePath":"/Attendance/DataRetrive/ImportAttlog","SubNavigations":[]}]},{"Category":2,"Title":"Attendance","Icon":"ki-outline ki-user-tick","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Leave Submission","Icon":"","AbsolutePath":"/Attendance/LeaveSubmission/Index","SubNavigations":[]},{"Category":3,"Title":"Late Permit","Icon":"","AbsolutePath":"/Attendance/LatePermit/Index","SubNavigations":[]},{"Category":3,"Title":"Early Out Permit","Icon":"","AbsolutePath":"/Attendance/EarlyOutPermit/Index","SubNavigations":[]},{"Category":3,"Title":"Out Permit","Icon":"","AbsolutePath":"/Attendance/OutPermit/Index","SubNavigations":[]},{"Category":3,"Title":"Overtime Letter","Icon":"","AbsolutePath":"/Attendance/OvertimeLetter/Index","SubNavigations":[]},{"Category":3,"Title":"Approval Request","Icon":"","AbsolutePath":"/Attendance/AttendanceApproval/Index","SubNavigations":[]}]},{"Category":2,"Title":"Calculation","Icon":"fa fa-bolt","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Calculation","Icon":"","AbsolutePath":"/Attendance/Calculation/Index","SubNavigations":[]}]},{"Category":2,"Title":"Report","Icon":"ki-menu ki-outline ki-paper-clip","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Daily","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/Daily","SubNavigations":[]},{"Category":3,"Title":"Weekly","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/Weekly","SubNavigations":[]},{"Category":3,"Title":"Monthly","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/Monthly","SubNavigations":[]},{"Category":3,"Title":"Recapitulation","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/Recapitulation","SubNavigations":[]},{"Category":3,"Title":"Late Arrival Detail","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/LateDetail","SubNavigations":[]},{"Category":3,"Title":"Permit Detail","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/PermitDetail","SubNavigations":[]},{"Category":3,"Title":"Leave Detail","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/LeaveDetail","SubNavigations":[]},{"Category":3,"Title":"Overtime Detail","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/OvertimeDetail","SubNavigations":[]},{"Category":3,"Title":"Shift Schedule","Icon":"","AbsolutePath":"/Attendance/AttendanceReport/ShiftSchedule","SubNavigations":[]}]},{"Category":2,"Title":"Graph","Icon":"ki-outline ki-graph-up","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Present","Icon":"","AbsolutePath":"/Attendance/AttendanceGraph/Present","SubNavigations":[]},{"Category":3,"Title":"Working Hour","Icon":"","AbsolutePath":"/Attendance/AttendanceGraph/WorkingHour","SubNavigations":[]},{"Category":3,"Title":"Overtime","Icon":"","AbsolutePath":"/Attendance/AttendanceGraph/Overtime","SubNavigations":[]}]},{"Category":2,"Title":"Setting","Icon":"ki-outline ki-setting","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Holiday","Icon":"","AbsolutePath":"/Attendance/Holiday/Index","SubNavigations":[]},{"Category":3,"Title":"Master Leave","Icon":"","AbsolutePath":"/Attendance/MasterLeave/Index","SubNavigations":[]},{"Category":3,"Title":"CutOff","Icon":"","AbsolutePath":"/Attendance/CutOff/Index","SubNavigations":[]},{"Category":3,"Title":"Standard Working","Icon":"","AbsolutePath":"/Attendance/StandardWorking/Index","SubNavigations":[]},{"Category":3,"Title":"Shift","Icon":"","AbsolutePath":"/Attendance/Shift/Index","SubNavigations":[]},{"Category":3,"Title":"Shift Schedule","Icon":"","AbsolutePath":"/Attendance/Shift/ShiftSchedule","SubNavigations":[]},{"Category":3,"Title":"Attendance Point","Icon":"","AbsolutePath":"/Attendance/AttendancePoint/Index","SubNavigations":[]},{"Category":3,"Title":"Overtime Rate","Icon":"","AbsolutePath":"/Attendance/OvertimeRate/Index","SubNavigations":[]},{"Category":3,"Title":"Finger Print Machine","Icon":"","AbsolutePath":"/Attendance/FingerPrint/Index","SubNavigations":[]},{"Category":3,"Title":"Approval Configuration","Icon":"","AbsolutePath":"/Attendance/ApprovalConfig/Index","SubNavigations":[]}]}]},{"Category":1,"Title":"Payroll","Icon":"fa fa-money-bills","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":2,"Title":"Payroll","Icon":"fa fa-money-bill-1-wave","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Employee Component","Icon":"","AbsolutePath":"/Payroll/EmployeeComponent/Index","SubNavigations":[]},{"Category":3,"Title":"Other Transaction","Icon":"","AbsolutePath":"/Payroll/OtherTransaction/Index","SubNavigations":[]},{"Category":3,"Title":"Calculation","Icon":"","AbsolutePath":"/Payroll/PayrollCalculation/Index","SubNavigations":[]}]},{"Category":2,"Title":"Reports","Icon":"ki-menu ki-outline ki-paper-clip","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Recapitulation","Icon":"","AbsolutePath":"/Payroll/PayrollRecapitulationReport/Index","SubNavigations":[]},{"Category":3,"Title":"Payslip","Icon":"","AbsolutePath":"/Payroll/PayrollPayslipReport/Index","SubNavigations":[]},{"Category":3,"Title":"Annual","Icon":"","AbsolutePath":"/Payroll/PayrollAnnualReport/Index","SubNavigations":[]},{"Category":3,"Title":"BPJS","Icon":"","AbsolutePath":"/Payroll/PayrollBpjsReport/Index","SubNavigations":[]},{"Category":3,"Title":"PPH21","Icon":"","AbsolutePath":"/Payroll/PayrollTaxReport/Index","SubNavigations":[]},{"Category":3,"Title":"SPT","Icon":"","AbsolutePath":"/Payroll/PayrollSPTReport/Index","SubNavigations":[]},{"Category":3,"Title":"Graph","Icon":"","AbsolutePath":"/Payroll/PayrollGraphReport/Index","SubNavigations":[]},{"Category":3,"Title":"Fleksible Report","Icon":"","AbsolutePath":"/Payroll/PayrollFleksibleReport/Index","SubNavigations":[]}]},{"Category":2,"Title":"Setting","Icon":"ki-outline ki-setting","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Allowance","Icon":"","AbsolutePath":"/Payroll/Allowance/Index","SubNavigations":[]},{"Category":3,"Title":"BPJS","Icon":"","AbsolutePath":"/Payroll/BpjsConfig/Index","SubNavigations":[]},{"Category":3,"Title":"Payslip Template","Icon":"","AbsolutePath":"/Payroll/PayslipTemplate/Index","SubNavigations":[]},{"Category":3,"Title":"TER","Icon":"","AbsolutePath":"/Payroll/AverageEffectiveRate/Index","SubNavigations":[]},{"Category":3,"Title":"PPH21","Icon":"","AbsolutePath":"/Payroll/PayrollPphConfig/Index","SubNavigations":[]}]}]}]},{"Category":0,"Title":"Global","Icon":"fa fa-arrows-left-right-to-line","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Country","Icon":"fa fa-globe","AbsolutePath":"/Organization/Country/Index","SubNavigations":[]},{"Category":3,"Title":"Province","Icon":"fa fa-globe","AbsolutePath":"/Organization/Province/Index","SubNavigations":[]},{"Category":3,"Title":"City","Icon":"fa fa-globe","AbsolutePath":"/Organization/City/Index","SubNavigations":[]},{"Category":3,"Title":"Bank","Icon":"fa fa-bank","AbsolutePath":"/Organization/Bank/Index","SubNavigations":[]},{"Category":3,"Title":"Currency","Icon":"fa fa-money-bill-1","AbsolutePath":"/Organization/Currency/Index","SubNavigations":[]}]},{"Category":0,"Title":"Administrator","Icon":"fa fa-user-shield","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"User Management","Icon":"fa fa-users","AbsolutePath":"/System/UserManagement/Index","SubNavigations":[]},{"Category":3,"Title":"Navigation Access","Icon":"fa fa-bars","AbsolutePath":"/System/NavigationAccess/Index","SubNavigations":[]},{"Category":3,"Title":"Organization Access","Icon":"fa fa-bars-staggered","AbsolutePath":"/System/OrganizationAccess/Index","SubNavigations":[]},{"Category":3,"Title":"Calendar Event","Icon":"fa fa-calendar","AbsolutePath":"/System/CalendarEvent/Calendar","SubNavigations":[]},{"Category":3,"Title":"Email Configuration","Icon":"fa fa-envelope","AbsolutePath":"/System/EmailConfig/Index","SubNavigations":[]}]},{"Category":0,"Title":"System","Icon":"fa fa-gears","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":1,"Title":"Maintenance","Icon":"fa fa-arrows-left-right-to-line","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Backup","Icon":"","AbsolutePath":"/System/Maintenance/Backup","SubNavigations":[]},{"Category":3,"Title":"Restore","Icon":"","AbsolutePath":"/System/Maintenance/Restore","SubNavigations":[]}]},{"Category":1,"Title":"Logs","Icon":"fa fa-arrows-left-right-to-line","AbsolutePath":"javascript:void(0)","SubNavigations":[{"Category":3,"Title":"Audit Trail","Icon":"","AbsolutePath":"/System/SystemLog/AuditTrail","SubNavigations":[]},{"Category":3,"Title":"User Changed","Icon":"","AbsolutePath":"/System/SystemLog/UserChanged","SubNavigations":[]}]}]}];
+        var navigationSelecteds = [];
+
+        console.log(navigationMasters)
+
+        function getExtension() {
+
+        }
+
+        function extensionClicked(extension) {
+            let html = "";
+
+            navigationMasters.filter(function (x) {
+                return x.Title == extension;
+            }).map(function (row, i) {
+                row.SubNavigations.map(function (item, index) {
+                    //console.log(item)
+                    if (item.Category == 3) {
+                        html += `<div class="menu-item">
+                                <a class="menu-link menu-control" href="javascript:void(0)" data-url="${item.AbsolutePath}" data-title="${item.Title}">`
+                            + (item.Icon == "" ? "" : `<span class="menu-icon"><i class="${item.Icon} fs-4 text-gray-700"></i></span>`)
+                            + `<span class="menu-title">${item.Title}</span>
+                                    </a>
+                                </div>`;
+                    } else {
+                        html += `<div class="menu-item">
+                                        <a class="menu-link module-item" href="${item.AbsolutePath}" data-module_name="${item.Title}" data-extension_name="${extension}">
+                                            <span class="menu-icon">
+                                                <i class="${item.Icon} ki-element-9 fs-4"></i>
+                                            </span>
+                                            <span class="menu-title">${item.Title}</span>
+                                        </a>
+                                    </div>`;
+                    }
+                });
+            });
+
+            $("#kt_app_header_tertiary_menu").html(html);
+
+            //console.log(subModules)
+
+            
+            // $.ajax({
+            //     url: `/Main/GetModuleNavigation?extension=${extension}`,
+            //     method: "GET",
+            //     success: function (res) {
+            //         console.log(res)
+            //         res.map(function (item, index) {
+            //             //console.log(item)
+            //             if (item.Category == 3) {
+            //                 html += `<div class="menu-item">
+            //                             <a class="menu-link menu-control" href="javascript:void(0)" data-url="${item.AbsolutePath}" data-title="${item.Title}">`
+            //                     + (item.Icon == "" ? "" : `<span class="menu-icon"><i class="${item.Icon} fs-4 text-gray-700"></i></span>`)
+            //                     + `<span class="menu-title">${item.Title}</span>
+            //                             </a>
+            //                         </div>`;
+            //             } else {
+            //                 html += `<div class="menu-item">
+            //                         <a class="menu-link module-item" href="${item.AbsolutePath}" data-module_name="${item.Title}" data-extension_name="${extension}">
+            //                             <span class="menu-icon">
+            //                                 <i class="${item.Icon} ki-element-9 fs-4"></i>
+            //                             </span>
+            //                             <span class="menu-title">${item.Title}</span>
+            //                         </a>
+            //                     </div>`;
+            //             }
+            //         });
+            //         $("#kt_app_header_tertiary_menu").html(html);
+            //     },
+            //     error: function (err) {
+            //         toastError(JSON.stringify(err));
+            //         //console.log(err)
+            //     }
+            // });
+            
+        }
+
+        function moduleClicked(extension, module) {
+            //console.log({ extension, module })
+            let html = "";
+
+            let mod = navigationMasters.filter(function (x) {
+                return x.Title == extension;
+            });
+
+            if(mod.length > 0)
+            {
+                mod[0].SubNavigations.filter(function (x) {
+                    return x.Title == module;
+                }).map(function (row, i) {
+                    row.SubNavigations.map(function (item, j) {
+                        if (item.Category == 3) {
+                            html += `<div class="menu-item menu-accordion menu-fit">
+                                                <a class="menu-link menu-control" href="javascript:void(0)" data-url="${item.AbsolutePath}" data-title="${item.Title}">`
+                                + `<span class="menu-icon"><i class="${item.Icon} fs-4 text-gray-700"></i></span>`
+                                + `<span class="menu-title">${item.Title}</span>
+                                                </a>
+                                            </div>`;
+                        } else {
+                            //console.log(item)
+                            html += `<div data-kt-menu-trigger="click" class="menu-item menu-accordion show">`
+                            html += `<span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="${item.Icon} fs-4 text-gray-700"></i>
+                                            </span>
+                                            <span class="menu-title">${item.Title}</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>`;
+
+                            let subs = item.SubNavigations;
+                            //console.log(subs)
+                            if (subs.length > 0) {
+                                html += `<div class="menu-sub menu-sub-accordion menu-state-gray-900 menu-fit">`;
+                                subs.map(function (sub, i) {
+                                    html += `<div class="menu-item menu-accordion menu-fit">
+                                                <a class="menu-link menu-control" href="javascript:void(0)" data-url="${sub.AbsolutePath}" data-title="${sub.Title}">
+                                                    <span class="menu-icon">
+                                                    </span>
+                                                    <span class="menu-title">${sub.Title}</span>
+                                                </a>
+                                            </div>`;
+                                });
+                                html += `</div>`;
+                            }
+                            html += `</div>`;
+                        }
+
+                    })
+                });
+
+                $("#kt_app_sidebar_menu").html(html);
+            }
+
+            
+            // .map(function (row, i) {
+            //     console.log(row)
+            //     $("#kt_app_sidebar_menu").html(html);
+            // });
+
+            
+            // let url = `/Main/GetMenuNavigation?extension=${extension}&module=${module}`;
+            // console.log(url)
+            // $.ajax({
+            //     url: url,
+            //     method: "GET",
+            //     success: function (res) {
+            //         console.log(res)
+            //         res.map(function (item, index) {
+            //             if (item.Category == 3) {
+            //                 html += `<div class="menu-item menu-accordion menu-fit">
+            //                             <a class="menu-link menu-control" href="javascript:void(0)" data-url="${item.AbsolutePath}" data-title="${item.Title}">`
+            //                     + `<span class="menu-icon"><i class="${item.Icon} fs-4 text-gray-700"></i></span>`
+            //                     + `<span class="menu-title">${item.Title}</span>
+            //                             </a>
+            //                         </div>`;
+            //             } else {
+            //                 //console.log(item)
+            //                 html += `<div data-kt-menu-trigger="click" class="menu-item menu-accordion show">`
+            //                 html += `<span class="menu-link">
+            //                         <span class="menu-icon">
+            //                             <i class="${item.Icon} fs-4 text-gray-700"></i>
+            //                         </span>
+            //                         <span class="menu-title">${item.Title}</span>
+            //                         <span class="menu-arrow"></span>
+            //                     </span>`;
+
+            //                 let subs = item.SubNavigations;
+            //                 //console.log(subs)
+            //                 if (subs.length > 0) {
+            //                     html += `<div class="menu-sub menu-sub-accordion menu-state-gray-900 menu-fit">`;
+            //                     subs.map(function (sub, i) {
+            //                         html += `<div class="menu-item menu-accordion menu-fit">
+            //                             <a class="menu-link menu-control" href="javascript:void(0)" data-url="${sub.AbsolutePath}" data-title="${sub.Title}">
+            //                                 <span class="menu-icon">
+            //                                 </span>
+            //                                 <span class="menu-title">${sub.Title}</span>
+            //                             </a>
+            //                         </div>`;
+            //                     });
+            //                     html += `</div>`;
+            //                 }
+            //                 html += `</div>`;
+            //             }
+            //         });
+            //         //console.log(res)
+            //         $("#kt_app_sidebar_menu").html(html);
+            //     },
+            //     error: function (err) {
+            //         toastError(JSON.stringify(err));
+            //         //console.log(err)
+            //     }
+            // });
+
+            // $("#kt_app_sidebar_menu").html(html);
+
+        }
+
+        function menuClicked(title, url) {
+            const isExists = navigationSelecteds.findIndex(function (x) {
+                return x == url;
+            });
+
+            if (isExists < 0) {
+                navigationSelecteds.push(url);
+                $('#tab-container').tabs('add', {
+                    title: title,
+                    content: getFrame(url),
+                    selected: true,
+                    tools: [{
+                        iconCls: 'icon-mini-refresh',
+                        handler: function (e) {
+                            console.log(e)
+                        }
+                    }],
+
+                    closable: true
+                });
+            } else {
+                $('#tab-container').tabs("select", isExists);
+            }
+        }
+
+        function getFrame(url) {
+            const height = window.innerHeight;
+            const minHeight = (height - Math.ceil(height * 0.22));
+            return `<iframe src="${url}" style="width:100%; height: ${minHeight}px;"></iframe>`;
+        }
+
+        $(function () {
+            $(document).on("click", ".extension-item", function () {
+                let extensionName = $(this).data("extension_name");
+                extensionClicked(extensionName)
+            });
+            $(document).on("click", ".module-item", function () {
+                let extensionName = $(this).data("extension_name");
+                let moduleName = $(this).data("module_name");
+                moduleClicked(extensionName, moduleName)
+            });
+
+            $(document).on("click", ".menu-control", function () {
+                let title = $(this).data("title");
+                let url = $(this).data("url");
+                menuClicked(title, url)
+            });
+
+            $("#tab-container").tabs({
+                border: false,
+                onSelect: function (title, index) {
+                    //console.log({ title, index })
+                },
+                onClose: function (title, index) {
+                    console.log({ title, index })
+                    navigationSelecteds.splice(index, 1);
+                }
+            });
+
+            const dashboardUrl = "/Main/Dashboard";
+            navigationSelecteds.push(dashboardUrl);
+            $('#tab-container').tabs('add', {
+                title: 'Dashboard',
+                content: getFrame(dashboardUrl)
+            });
+
+            syncDrawerLoadMoreButton();
+
+            $('#kt_notifications_tabs [data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+                syncDrawerLoadMoreButton();
+            });
+
+            $('#kt_notifications_load_more_btn').on('click', function () {
+                const activeTabHref = $('#kt_notifications_tabs .nav-link.active').attr('href');
+                const map = {
+                    '#kt_notifications_tab_teams': '.organization-load-more-button',
+                    '#kt_notifications_tab_notifications': '.calendar-notifications-load-more-button',
+                    '#kt_notifications_tab_approvals': '.approval-load-more-button'
+                };
+
+                const loadMoreSelector = map[activeTabHref] || '';
+                const $loadMoreButton = loadMoreSelector ? $(activeTabHref).find(loadMoreSelector).first() : $();
+                if ($loadMoreButton.length) {
+                    $loadMoreButton.trigger('click');
+                }
+            });
+        });
+
+        function syncDrawerLoadMoreButton() {
+            const $footerButton = $('#kt_notifications_load_more_btn');
+            const activeTabHref = $('#kt_notifications_tabs .nav-link.active').attr('href');
+            const map = {
+                '#kt_notifications_tab_teams': '.organization-load-more-button',
+                '#kt_notifications_tab_notifications': '.calendar-notifications-load-more-button',
+                '#kt_notifications_tab_approvals': '.approval-load-more-button'
+            };
+
+            const loadMoreSelector = map[activeTabHref] || '';
+            const hasNextPage = loadMoreSelector && $(activeTabHref).find(loadMoreSelector).length > 0;
+
+            if (hasNextPage) {
+                $footerButton.removeClass('d-none');
+            } else {
+                $footerButton.addClass('d-none');
+            }
+        }
+
+    </script>
+
+
+
+<svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg></body></html>

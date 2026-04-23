@@ -1,0 +1,10 @@
+Saga Mini Console Translate Report
+Started UTC: 2026-04-23T07:48:03.8575623+00:00
+Ended UTC: 2026-04-23T07:52:55.1389967+00:00
+Visited URLs: 26
+Skipped Pages: 0
+Page Errors: 0
+Candidate Texts: 253
+Unique Texts: 253
+Inserted Rows: 3
+Updated Columns: 98

@@ -1,0 +1,27 @@
+{
+  "StartedAtUtc": "2026-04-23T08:12:31.5025283+00:00",
+  "EndedAtUtc": "2026-04-23T08:19:06.7732591+00:00",
+  "SqliteMode": "SharedFile",
+  "SourceSqlitePath": "D:\\Saga_ERP_new\\SagaERP\\Saga.MainApplication\\LocalStorage.db",
+  "WorkingSqlitePath": "D:\\Saga_ERP_new\\SagaERP\\Saga.MainApplication\\LocalStorage.db",
+  "VisitedUrlCount": 26,
+  "SkippedPageCount": 0,
+  "PageErrorCount": 0,
+  "CandidateTextCount": 253,
+  "UniqueTextCount": 253,
+  "InsertedRowCount": 251,
+  "UpdatedColumnCount": 1012,
+  "ProviderSuccessCount": {
+    "LaraTranslateTranslationProvider": 243,
+    "IflytekTranslationProvider": 715
+  },
+  "ProviderFailureCount": {
+    "Fallback": 54
+  },
+  "LanguageProcessedCount": {
+    "Bahasa": 253,
+    "Korea": 253,
+    "Arabic": 253,
+    "China": 253
+  }
+}
