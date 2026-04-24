@@ -15,6 +15,7 @@ public class TranslationAutomationOptions
     public string ReportsDirectory { get; set; } = "./reports";
     public string SnapshotsDirectory { get; set; } = "./snapshots";
     public bool EnableResidualDetection { get; set; } = true;
+    public bool CleanupNoiseLanguageRows { get; set; } = true;
     public List<string> SkipUrlPatterns { get; set; } = new();
     public List<string> AllowUrlPatterns { get; set; } = new();
 }

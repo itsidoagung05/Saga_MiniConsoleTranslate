@@ -36,6 +36,13 @@ public class TranslationRunOrchestrator(
         var normalizedRows = await TranslatorHelper.NormalizeEncodedColumnsAsync(_localDataContext, cancellationToken);
         if (normalizedRows > 0)
             _logger.LogInformation("Normalized encoded language values for {Count} rows.", normalizedRows);
+        if (_translationAutomationOptions.CleanupNoiseLanguageRows)
+        {
+            var deletedNoiseWords = await TranslatorHelper.DeleteNoiseLanguageRowsAsync(_localDataContext, cancellationToken);
+            runResult.DeletedNoiseWords = deletedNoiseWords.ToList();
+            if (deletedNoiseWords.Count > 0)
+                _logger.LogInformation("Deleted {Count} noise Language rows detected as JS/plain-literal fragments.", deletedNoiseWords.Count);
+        }
 
         await using var appHandle = await _mainApplicationLauncher.LaunchOrAttachAsync(
             $"Data Source={mirror.WorkingPath}",
@@ -91,7 +98,8 @@ public class TranslationRunOrchestrator(
             DateTimeOffset.UtcNow,
             mirror,
             crawlResult,
-            runResult.TranslationDetailsByLanguage);
+            runResult.TranslationDetailsByLanguage,
+            runResult.DeletedNoiseWords.Count);
         await _reportWriter.WriteAsync(runResult, cancellationToken);
 
         return runResult;
@@ -147,7 +155,8 @@ public class TranslationRunOrchestrator(
         DateTimeOffset end,
         SqliteMirrorResult mirror,
         CrawlResult crawlResult,
-        Dictionary<string, List<TranslationEnsureResult>> detailsByLanguage)
+        Dictionary<string, List<TranslationEnsureResult>> detailsByLanguage,
+        int deletedNoiseWordCount)
     {
         var allResults = detailsByLanguage.SelectMany(x => x.Value).ToList();
         var providerSuccess = allResults
@@ -174,6 +183,7 @@ public class TranslationRunOrchestrator(
             UniqueTextCount = crawlResult.Candidates.Select(x => x.Text).Distinct(StringComparer.OrdinalIgnoreCase).Count(),
             InsertedRowCount = allResults.Count(x => x.InsertedNewRow),
             UpdatedColumnCount = allResults.Count(x => x.UpdatedTargetColumn),
+            DeletedNoiseWordCount = deletedNoiseWordCount,
             ProviderSuccessCount = providerSuccess,
             ProviderFailureCount = providerFailure,
             LanguageProcessedCount = detailsByLanguage.ToDictionary(x => x.Key, x => x.Value.Count, StringComparer.OrdinalIgnoreCase)

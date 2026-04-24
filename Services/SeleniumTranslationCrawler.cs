@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Playwright;
+using System.Text.RegularExpressions;
 using Saga_MiniConsoleTranslate.Configuration;
 using Saga_MiniConsoleTranslate.Models;
 
@@ -14,6 +15,10 @@ public class SeleniumTranslationCrawler(
     ILogger<SeleniumTranslationCrawler> _logger
 )
 {
+    private static readonly Regex RoutePattern = new(
+        @"(?:(?:href|url|location|window\.open|navigate)\s*[:=]\s*)?['""](?<path>/(?:[A-Za-z0-9_\-]+/?){1,6}(?:\?[^'""]*)?)['""]",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
     private readonly SeleniumOptions _seleniumOptions = _seleniumOptionsAccessor.Value;
     private readonly TranslationAutomationOptions _automationOptions = _automationOptionsAccessor.Value;
     private readonly AutomationAccountOptions _accountOptions = _accountOptionsAccessor.Value;
@@ -91,14 +96,15 @@ public class SeleniumTranslationCrawler(
             {
                 await page.GotoAsync(url, new PageGotoOptions
                 {
-                    WaitUntil = WaitUntilState.NetworkIdle,
+                    WaitUntil = WaitUntilState.DOMContentLoaded,
                     Timeout = Math.Max(30000, _seleniumOptions.PageLoadTimeoutSeconds * 1000)
                 });
-                await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                await page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
                 await Task.Delay(_automationOptions.DelayAfterNavigationMs, cancellationToken);
 
                 if (_automationOptions.ClickSafeTabsAndModals)
                     await OpenSafeInteractiveElementsAsync(page, cancellationToken);
+                await ExpandNavigationAsync(page, cancellationToken);
 
                 var html = await page.ContentAsync();
                 var candidates = _extractor.Extract(html, url);
@@ -108,6 +114,12 @@ public class SeleniumTranslationCrawler(
                 pageResult.SnapshotPath = await WriteSnapshotAsync(url, html, cancellationToken);
 
                 foreach (var link in await GetSafeLinksAsync(page, baseUrl))
+                {
+                    if (!visited.Contains(link))
+                        queue.Enqueue((link, depth + 1));
+                }
+
+                foreach (var link in GetSafeLinksFromHtml(html, baseUrl))
                 {
                     if (!visited.Contains(link))
                         queue.Enqueue((link, depth + 1));
@@ -128,14 +140,14 @@ public class SeleniumTranslationCrawler(
     private async Task LoginAsync(IPage page, string baseUrl, string email, string password, CancellationToken cancellationToken)
     {
         var loginUrl = new Uri(new Uri(baseUrl.TrimEnd('/') + "/"), "Authorization/Login").ToString();
-        await page.GotoAsync(loginUrl, new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle });
+        await page.GotoAsync(loginUrl, new PageGotoOptions { WaitUntil = WaitUntilState.DOMContentLoaded });
         await page.Locator("#username").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
 
         await page.Locator("#username").FillAsync(email);
         await page.Locator("#password").FillAsync(password);
         await page.Locator("#btnSubmit").ClickAsync();
 
-        await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        await page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
         await Task.Delay(_automationOptions.DelayAfterNavigationMs, cancellationToken);
     }
 
@@ -266,6 +278,26 @@ public class SeleniumTranslationCrawler(
         }
     }
 
+    private async Task ExpandNavigationAsync(IPage page, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await page.EvaluateAsync(@"() => {
+                const elements = document.querySelectorAll('.treeview > a, .menu-item > a, [data-toggle=""collapse""], [data-bs-toggle=""collapse""]');
+                elements.forEach(el => {
+                    const text = (el.textContent || '').toLowerCase();
+                    if (['save','submit','delete','approve','reject','process','confirm','logout'].some(x => text.includes(x))) return;
+                    el.click();
+                });
+                window.scrollTo(0, document.body.scrollHeight);
+            }");
+            await Task.Delay(Math.Max(100, _automationOptions.DelayAfterNavigationMs / 2), cancellationToken);
+        }
+        catch
+        {
+        }
+    }
+
     private IReadOnlyCollection<(string Email, string Password)> BuildAccounts()
     {
         var accounts = new List<(string Email, string Password)>();
@@ -322,7 +354,36 @@ public class SeleniumTranslationCrawler(
             var token = part.Trim();
             if (token.StartsWith("/") || token.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                 yield return token;
+            else if (token.Contains('/') && token.All(ch => char.IsLetterOrDigit(ch) || ch is '/' or '-' or '_' or '?' or '&' or '='))
+                yield return "/" + token.TrimStart('/');
         }
+    }
+
+    private static IEnumerable<string> GetSafeLinksFromHtml(string html, string baseUrl)
+    {
+        var baseUri = new Uri(baseUrl.TrimEnd('/') + "/");
+        var links = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (Match match in RoutePattern.Matches(html ?? string.Empty))
+        {
+            if (!match.Success)
+                continue;
+
+            var path = match.Groups["path"].Value;
+            if (string.IsNullOrWhiteSpace(path))
+                continue;
+
+            if (!Uri.TryCreate(baseUri, path, out var uri))
+                continue;
+
+            if (!uri.Host.Equals(baseUri.Host, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            var normalized = NormalizeUrl(uri);
+            if (!ContainsDangerousPattern(normalized))
+                links.Add(normalized);
+        }
+
+        return links;
     }
 
     private bool IsAllowedUrl(string url)

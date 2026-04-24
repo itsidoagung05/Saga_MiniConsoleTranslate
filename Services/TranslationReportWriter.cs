@@ -24,12 +24,14 @@ public class TranslationReportWriter(
         var detailPath = Path.Combine(reportsDirectory, $"detail-{timestamp}.json");
         var textLogPath = Path.Combine(reportsDirectory, $"report-{timestamp}.txt");
         var residualPath = Path.Combine(reportsDirectory, $"residual-{timestamp}.json");
+        var deletedNoisePath = Path.Combine(reportsDirectory, $"deleted-noise-{timestamp}.json");
 
         var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
         await File.WriteAllTextAsync(summaryPath, JsonSerializer.Serialize(runResult.Summary, jsonOptions), cancellationToken);
         await File.WriteAllTextAsync(detailPath, JsonSerializer.Serialize(runResult.TranslationDetailsByLanguage, jsonOptions), cancellationToken);
         await File.WriteAllTextAsync(residualPath, JsonSerializer.Serialize(runResult.ResidualFindings, jsonOptions), cancellationToken);
+        await File.WriteAllTextAsync(deletedNoisePath, JsonSerializer.Serialize(runResult.DeletedNoiseWords, jsonOptions), cancellationToken);
 
         var builder = new StringBuilder();
         builder.AppendLine("Saga Mini Console Translate Report");
@@ -42,6 +44,7 @@ public class TranslationReportWriter(
         builder.AppendLine($"Unique Texts: {runResult.Summary.UniqueTextCount}");
         builder.AppendLine($"Inserted Rows: {runResult.Summary.InsertedRowCount}");
         builder.AppendLine($"Updated Columns: {runResult.Summary.UpdatedColumnCount}");
+        builder.AppendLine($"Deleted Noise Words: {runResult.Summary.DeletedNoiseWordCount}");
 
         await File.WriteAllTextAsync(textLogPath, builder.ToString(), cancellationToken);
 
@@ -50,6 +53,7 @@ public class TranslationReportWriter(
         _logger.LogInformation("Detail: {DetailPath}", detailPath);
         _logger.LogInformation("Text Log: {TextLogPath}", textLogPath);
         _logger.LogInformation("Residual: {ResidualPath}", residualPath);
+        _logger.LogInformation("Deleted Noise: {DeletedNoisePath}", deletedNoisePath);
     }
 
     private static string ResolvePath(string path)

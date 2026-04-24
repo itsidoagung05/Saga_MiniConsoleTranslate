@@ -8,4 +8,5 @@ public class TranslationRunResult
     public Dictionary<string, List<TranslationEnsureResult>> TranslationDetailsByLanguage { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public List<CrawlPageResult> CrawlPages { get; set; } = new();
     public List<ResidualTextFinding> ResidualFindings { get; set; } = new();
+    public List<string> DeletedNoiseWords { get; set; } = new();
 }

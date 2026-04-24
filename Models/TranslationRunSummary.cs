@@ -14,6 +14,7 @@ public class TranslationRunSummary
     public int UniqueTextCount { get; set; }
     public int InsertedRowCount { get; set; }
     public int UpdatedColumnCount { get; set; }
+    public int DeletedNoiseWordCount { get; set; }
     public Dictionary<string, int> ProviderSuccessCount { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public Dictionary<string, int> ProviderFailureCount { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public Dictionary<string, int> LanguageProcessedCount { get; set; } = new(StringComparer.OrdinalIgnoreCase);

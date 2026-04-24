@@ -8,6 +8,10 @@ public class RazorTranslateCandidateExtractor(
     ILogger<RazorTranslateCandidateExtractor> _logger
 )
 {
+    private static readonly Regex ScriptStyleBlockRegex = new(
+        @"<script\b[^>]*>[\s\S]*?</script>|<style\b[^>]*>[\s\S]*?</style>",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
     private static readonly Regex DoubleQuoteRegex = new(
         @"@Html\.Translate\(\s*""((?:\\.|[^""\\])*)""\s*\)",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
@@ -24,6 +28,54 @@ public class RazorTranslateCandidateExtractor(
         @"(?:placeholder|title|aria-label|value)\s*=\s*[""']([^""'@][^""']*)[""']",
         RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
+    private static readonly Regex TempDataLiteralRegex = new(
+        @"TempData\s*\[\s*[^\]]+\s*\]\s*=\s*\$?""((?:\\.|[^""\\])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex TempDataVerbatimLiteralRegex = new(
+        @"TempData\s*\[\s*[^\]]+\s*\]\s*=\s*\$?@""((?:""""|[^""])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex TempDataSingleQuoteRegex = new(
+        @"TempData\s*\[\s*[^\]]+\s*\]\s*=\s*'((?:\\.|[^'\\])*)'",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ExceptionLiteralRegex = new(
+        @"throw\s+new\s+\w*Exception\s*\(\s*\$?""((?:\\.|[^""\\])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ExceptionVerbatimLiteralRegex = new(
+        @"throw\s+new\s+\w*Exception\s*\(\s*\$?@""((?:""""|[^""])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ModelStateAddErrorLiteralRegex = new(
+        @"ModelState\.AddModelError\s*\(\s*[^,]+,\s*\$?""((?:\\.|[^""\\])*)""\s*\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ModelStateAddErrorVerbatimLiteralRegex = new(
+        @"ModelState\.AddModelError\s*\(\s*[^,]+,\s*\$?@""((?:""""|[^""])*)""\s*\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ModelStateAddErrorSingleQuoteRegex = new(
+        @"ModelState\.AddModelError\s*\(\s*[^,]+,\s*'((?:\\.|[^'\\])*)'\s*\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ResultFailureArrayLiteralRegex = new(
+        @"Result(?:<[^>]+>)?\.Failure\s*\(\s*new\[\]\s*\{[\s\S]*?\$?""((?:\\.|[^""\\])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ResultFailureArrayVerbatimRegex = new(
+        @"Result(?:<[^>]+>)?\.Failure\s*\(\s*new\[\]\s*\{[\s\S]*?\$?@""((?:""""|[^""])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ResultFailureCollectionLiteralRegex = new(
+        @"Result(?:<[^>]+>)?\.Failure\s*\(\s*\[[\s\S]*?\$?""((?:\\.|[^""\\])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex ResultFailureCollectionVerbatimRegex = new(
+        @"Result(?:<[^>]+>)?\.Failure\s*\(\s*\[[\s\S]*?\$?@""((?:""""|[^""])*)""",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
     private static readonly Regex NumberRegex = new("^[\\d\\.,\\-\\+]+$", RegexOptions.Compiled);
     private static readonly Regex SymbolRegex = new("^[^\\p{L}\\p{N}]+$", RegexOptions.Compiled);
 
@@ -31,16 +83,17 @@ public class RazorTranslateCandidateExtractor(
     {
         var results = new List<TranslationCandidate>();
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var scannedFiles = 0;
+        var scannedRazorFiles = 0;
+        var scannedCodeFiles = 0;
 
-        foreach (var filePath in EnumerateTargetFiles())
+        foreach (var filePath in EnumerateRazorFiles())
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             if (!File.Exists(filePath))
                 continue;
 
-            scannedFiles++;
+            scannedRazorFiles++;
 
             string content;
             try
@@ -57,10 +110,34 @@ public class RazorTranslateCandidateExtractor(
             AddCandidates(results, seen, ExtractPlainTextLiterals(content), "view-literal", filePath);
         }
 
+        foreach (var filePath in EnumerateCodeMessageFiles())
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (!File.Exists(filePath))
+                continue;
+
+            scannedCodeFiles++;
+
+            string content;
+            try
+            {
+                content = await File.ReadAllTextAsync(filePath, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to read code file: {FilePath}", filePath);
+                continue;
+            }
+
+            AddCandidates(results, seen, ExtractCodeMessageStrings(content), "code-message", filePath);
+        }
+
         _logger.LogInformation(
-            "Extracted {Count} unique translation candidates from {ScannedFiles} Razor files.",
+            "Extracted {Count} unique translation candidates from {ScannedRazorFiles} Razor files and {ScannedCodeFiles} code files.",
             results.Count,
-            scannedFiles);
+            scannedRazorFiles,
+            scannedCodeFiles);
         return results;
     }
 
@@ -82,7 +159,7 @@ public class RazorTranslateCandidateExtractor(
     private static string Normalize(string value)
         => Regex.Replace(value.Trim(), "\\s+", " ");
 
-    private static IEnumerable<string> EnumerateTargetFiles()
+    private static IEnumerable<string> EnumerateRazorFiles()
     {
         var solutionRoot = PathResolver.ResolveSolutionRoot();
         var viewRoots = Directory
@@ -110,9 +187,61 @@ public class RazorTranslateCandidateExtractor(
         }
     }
 
+    private static IEnumerable<string> EnumerateCodeMessageFiles()
+    {
+        var solutionRoot = PathResolver.ResolveSolutionRoot();
+        var files = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        var moduleRoots = Directory
+            .EnumerateDirectories(solutionRoot, "*", SearchOption.TopDirectoryOnly)
+            .Where(x =>
+            {
+                var name = Path.GetFileName(x);
+                return name.StartsWith("Saga_", StringComparison.OrdinalIgnoreCase) ||
+                       name.Equals("Saga.MainApplication", StringComparison.OrdinalIgnoreCase);
+            });
+
+        foreach (var moduleRoot in moduleRoots)
+        {
+            var controllerDir = Path.Combine(moduleRoot, "Controllers");
+            if (!Directory.Exists(controllerDir))
+                continue;
+
+            foreach (var file in Directory.EnumerateFiles(controllerDir, "*Controller.cs", SearchOption.AllDirectories))
+            {
+                if (!IsSkippablePath(file))
+                    files.Add(file);
+            }
+        }
+
+        var additionalRoots = new[]
+        {
+            Path.Combine(solutionRoot, "Saga_Core", "Saga.Mediator"),
+            Path.Combine(solutionRoot, "Saga_Core", "Saga.Infrastructure"),
+            Path.Combine(solutionRoot, "Saga_Core", "Saga.Validators")
+        };
+
+        foreach (var root in additionalRoots)
+        {
+            if (!Directory.Exists(root))
+                continue;
+
+            foreach (var file in Directory.EnumerateFiles(root, "*.cs", SearchOption.AllDirectories))
+            {
+                if (!IsSkippablePath(file))
+                    files.Add(file);
+            }
+        }
+
+        foreach (var file in files)
+            yield return file;
+    }
+
     private static IEnumerable<string> ExtractPlainTextLiterals(string content)
     {
-        foreach (Match match in TagTextRegex.Matches(content))
+        var sanitizedContent = ScriptStyleBlockRegex.Replace(content, " ");
+
+        foreach (Match match in TagTextRegex.Matches(sanitizedContent))
         {
             if (!match.Success)
                 continue;
@@ -122,7 +251,7 @@ public class RazorTranslateCandidateExtractor(
                 yield return value;
         }
 
-        foreach (Match match in AttributeTextRegex.Matches(content))
+        foreach (Match match in AttributeTextRegex.Matches(sanitizedContent))
         {
             if (!match.Success)
                 continue;
@@ -131,6 +260,140 @@ public class RazorTranslateCandidateExtractor(
             if (IsEligiblePlainText(value))
                 yield return value;
         }
+    }
+
+    private static IEnumerable<string> ExtractCodeMessageStrings(string content)
+    {
+        foreach (Match match in TempDataLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in TempDataVerbatimLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var verbatim = match.Groups[1].Value.Replace("\"\"", "\"");
+            var value = Normalize(verbatim);
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in TempDataSingleQuoteRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ExceptionLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ExceptionVerbatimLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var verbatim = match.Groups[1].Value.Replace("\"\"", "\"");
+            var value = Normalize(verbatim);
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ModelStateAddErrorLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ModelStateAddErrorVerbatimLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var verbatim = match.Groups[1].Value.Replace("\"\"", "\"");
+            var value = Normalize(verbatim);
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ModelStateAddErrorSingleQuoteRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ResultFailureArrayLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ResultFailureArrayVerbatimRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(match.Groups[1].Value.Replace("\"\"", "\""));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ResultFailureCollectionLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in ResultFailureCollectionVerbatimRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(match.Groups[1].Value.Replace("\"\"", "\""));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+    }
+
+    private static bool IsSkippablePath(string file)
+    {
+        return file.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase) ||
+               file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase) ||
+               file.Contains($"{Path.DirectorySeparatorChar}publish{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase) ||
+               file.Contains($"{Path.DirectorySeparatorChar}release{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase);
     }
 
     private static string SafeUnescape(string value)
@@ -191,8 +454,15 @@ public class RazorTranslateCandidateExtractor(
             value.StartsWith("/", StringComparison.OrdinalIgnoreCase))
             return false;
 
-        var blackList = new[] { "function(", "var ", "const ", "let ", "=>", "return ", "if(", "for(" };
+        var blackList = new[]
+        {
+            "function(", "var ", "const ", "let ", "=>", "return ", "if(", "for(",
+            " + ", " ? ", " : ", "==", "!=", "&&", "||", "$(", "item.", ".replace(", ".val("
+        };
         if (blackList.Any(value.Contains))
+            return false;
+
+        if (value.Contains('`') || value.Contains("\\n", StringComparison.OrdinalIgnoreCase))
             return false;
 
         return true;

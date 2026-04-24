@@ -1,4 +1,0 @@
-2026-04-21 14:16:09.549 +07:00 [INF] SQLite source path: D:\Saga_ERP_new\SagaERP\Saga_MiniConsoleTranslate\bin\Debug\Saga.MainApplication\LocalStorage.db
-2026-04-21 14:16:09.680 +07:00 [INF] SQLite working path: D:\Saga_ERP_new\SagaERP\Saga_MiniConsoleTranslate\bin\Debug\net8.0\runtime\LocalStorage.working.db
-2026-04-21 14:16:09.735 +07:00 [INF] Started Saga.MainApplication process. PID: 27616
-2026-04-21 14:16:10.122 +07:00 [WRN] MainApp: The build failed. Fix the build errors and run again.
