@@ -76,6 +76,30 @@ public class RazorTranslateCandidateExtractor(
         @"Result(?:<[^>]+>)?\.Failure\s*\(\s*\[[\s\S]*?\$?@""((?:""""|[^""])*)""",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
+    private static readonly Regex BaseTranslateLiteralRegex = new(
+        @"(?<!@Html\.)\bTranslate\s*\(\s*\$?""((?:\\.|[^""\\])*)""\s*\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex BaseTranslateVerbatimLiteralRegex = new(
+        @"(?<!@Html\.)\bTranslate\s*\(\s*\$?@""((?:""""|[^""])*)""\s*\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex BaseTranslateSingleQuoteRegex = new(
+        @"(?<!@Html\.)\bTranslate\s*\(\s*'((?:\\.|[^'\\])*)'\s*\)",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex SelectListItemLiteralRegex = new(
+        @"new\s+SelectListItem\s*\(\s*\$?""((?:\\.|[^""\\])*)""\s*,",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex SelectListItemVerbatimLiteralRegex = new(
+        @"new\s+SelectListItem\s*\(\s*\$?@""((?:""""|[^""])*)""\s*,",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    private static readonly Regex SelectListItemSingleQuoteRegex = new(
+        @"new\s+SelectListItem\s*\(\s*'((?:\\.|[^'\\])*)'\s*,",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
     private static readonly Regex NumberRegex = new("^[\\d\\.,\\-\\+]+$", RegexOptions.Compiled);
     private static readonly Regex SymbolRegex = new("^[^\\p{L}\\p{N}]+$", RegexOptions.Compiled);
 
@@ -383,6 +407,66 @@ public class RazorTranslateCandidateExtractor(
                 continue;
 
             var value = Normalize(match.Groups[1].Value.Replace("\"\"", "\""));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in BaseTranslateLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in BaseTranslateVerbatimLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(match.Groups[1].Value.Replace("\"\"", "\""));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in BaseTranslateSingleQuoteRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in SelectListItemLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in SelectListItemVerbatimLiteralRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(match.Groups[1].Value.Replace("\"\"", "\""));
+            if (IsEligiblePlainText(value))
+                yield return value;
+        }
+
+        foreach (Match match in SelectListItemSingleQuoteRegex.Matches(content))
+        {
+            if (!match.Success)
+                continue;
+
+            var value = Normalize(SafeUnescape(match.Groups[1].Value));
             if (IsEligiblePlainText(value))
                 yield return value;
         }
